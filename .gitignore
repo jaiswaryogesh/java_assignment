@@ -1,0 +1,23 @@
+# Maven build outputs
+target/
+
+# Local database files
+*.db
+*.db-journal
+*.db-wal
+
+# Local portable maven
+maven/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+bin/
+
+# OS specific files
+Thumbs.db
+Desktop.ini

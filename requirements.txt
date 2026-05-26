@@ -1,0 +1,24 @@
+# Java Expense Tracker Requirements and Dependencies
+
+## 1. Environment Requirements
+- **Java JDK**: Version 21 (Eclipse Adoptium / OpenJDK)
+- **Build System**: Apache Maven (Version 3.9.0 or higher)
+- **Database**: SQLite (built-in, connection via JDBC)
+
+## 2. Library Dependencies (Managed via Maven in pom.xml)
+- **JavaFX Controls** (org.openjfx:javafx-controls:21)
+  Provides the UI controls, charts, layouts, and window containers.
+- **JavaFX FXML** (org.openjfx:javafx-fxml:21)
+  Handles parsing and loading of FXML layouts.
+- **SQLite JDBC Driver** (org.xerial:sqlite-jdbc:3.45.1.0)
+  Enables the application to create, connect to, and execute SQL statements on the local SQLite database (`expense_tracker.db`).
+
+## 3. Run Environment Variables
+- `JAVA_HOME`: Must point to your JDK 21 installation folder.
+  - *Example (VS Code extension JDK)*: `C:\Users\jaisw\.vscode\extensions\redhat.java-1.54.0-win32-x64\jre\21.0.10-win32-x86_64`
+
+## 4. Launching Command
+```powershell
+$env:JAVA_HOME = "C:\Users\jaisw\.vscode\extensions\redhat.java-1.54.0-win32-x64\jre\21.0.10-win32-x86_64"
+mvn clean compile exec:java -Dexec.mainClass="com.expensetracker.Launcher"
+```

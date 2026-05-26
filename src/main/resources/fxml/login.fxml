@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="750.0" styleClass="main-bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.expensetracker.controller.LoginController">
+   <children>
+      <VBox alignment="CENTER" fillWidth="true" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <VBox spacing="10.0" alignment="CENTER">
+               <children>
+                  <Label text="EXPENSE TRACKER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  <Label text="Manage your money in style" textFill="#94a3b8">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </VBox>
+            
+            <VBox prefWidth="380.0" spacing="20.0" styleClass="card">
+               <children>
+                  <Label text="Login to your account" styleClass="header-title" />
+                  
+                  <VBox spacing="6.0">
+                     <children>
+                        <Label styleClass="label-label" text="USERNAME" />
+                        <TextField fx:id="usernameField" promptText="Enter your username" styleClass="text-field" />
+                     </children>
+                  </VBox>
+                  
+                  <VBox spacing="6.0">
+                     <children>
+                        <Label styleClass="label-label" text="PASSWORD" />
+                        <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="password-field" />
+                     </children>
+                  </VBox>
+                  
+                  <Label fx:id="errorLabel" styleClass="label-error" wrapText="true" visible="false" managed="false" />
+                  
+                  <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" styleClass="btn, btn-primary" text="Login" />
+                  
+                  <VBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label text="Don't have an account?" textFill="#94a3b8" />
+                        <Hyperlink onAction="#goToSignup" text="Sign Up Here" textFill="#06b6d4" underline="true" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

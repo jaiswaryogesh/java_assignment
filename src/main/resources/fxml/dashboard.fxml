@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="768.0" prefWidth="1200.0" styleClass="main-bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.expensetracker.controller.DashboardController">
+   <children>
+      <!-- Sidebar Navigation -->
+      <VBox prefWidth="240.0" styleClass="sidebar" spacing="25.0">
+         <children>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="EXPENSE" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label text="TRACKER" textFill="#8b5cf6">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="welcomeLabel" text="Welcome, User!" textFill="#94a3b8">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </VBox>
+            
+            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="btn-menu, btn-menu-active" text="Dashboard" />
+                  <Button fx:id="exportButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleExportCsv" styleClass="btn-menu" text="Export CSV" />
+               </children>
+            </VBox>
+            
+            <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogout" styleClass="btn, btn-secondary" text="Log Out" />
+         </children>
+      </VBox>
+      
+      <!-- Main Content Scroll Area -->
+      <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" styleClass="main-bg" vbarPolicy="AS_NEEDED">
+         <content>
+            <VBox spacing="25.0" styleClass="content-area">
+               <children>
+                  <!-- Dashboard Cards Row -->
+                  <HBox spacing="20.0">
+                     <children>
+                        <!-- Total Expenses Card -->
+                        <VBox HBox.hgrow="ALWAYS" styleClass="card-primary" spacing="8.0" prefWidth="250.0">
+                           <children>
+                              <Label text="TOTAL EXPENSES" styleClass="card-title" />
+                              <Label fx:id="totalExpensesLabel" text="\$0.00" styleClass="card-value" />
+                           </children>
+                        </VBox>
+                        
+                        <!-- Monthly Expenses Card -->
+                        <VBox HBox.hgrow="ALWAYS" styleClass="card-secondary" spacing="8.0" prefWidth="250.0">
+                           <children>
+                              <Label text="THIS MONTH" styleClass="card-title" />
+                              <Label fx:id="monthlyExpensesLabel" text="\$0.00" styleClass="card-value" />
+                           </children>
+                        </VBox>
+                        
+                        <!-- Top Category Card -->
+                        <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="8.0" prefWidth="250.0">
+                           <children>
+                              <Label text="TOP CATEGORY" styleClass="card-title" />
+                              <Label fx:id="topCategoryLabel" text="N/A" styleClass="card-value" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  
+                  <!-- Main Content Grid -->
+                  <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <!-- Left Panel: Directory Table and Filter -->
+                        <VBox spacing="15.0" HBox.hgrow="ALWAYS" prefWidth="550.0">
+                           <children>
+                              <VBox spacing="10.0" styleClass="card">
+                                 <children>
+                                    <Label text="Expense Log" styleClass="header-title" />
+                                    
+                                    <!-- Search and Filters HBox -->
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <TextField fx:id="searchField" promptText="Search description..." HBox.hgrow="ALWAYS" styleClass="text-field" />
+                                                <ComboBox fx:id="categoryFilter" promptText="All Categories" prefWidth="140.0" styleClass="combo-box" />
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="From:" textFill="#94a3b8" />
+                                                <DatePicker fx:id="startDateFilter" promptText="Start Date" HBox.hgrow="ALWAYS" styleClass="date-picker" />
+                                                <Label text="To:" textFill="#94a3b8" />
+                                                <DatePicker fx:id="endDateFilter" promptText="End Date" HBox.hgrow="ALWAYS" styleClass="date-picker" />
+                                                <Button fx:id="clearFiltersButton" mnemonicParsing="false" onAction="#handleClearFilters" styleClass="btn, btn-secondary" text="Clear" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    
+                                    <!-- Expenses TableView -->
+                                    <TableView fx:id="expenseTable" prefHeight="350.0" VBox.vgrow="ALWAYS">
+                                      <columns>
+                                        <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
+                                        <TableColumn fx:id="categoryColumn" prefWidth="100.0" text="Category" />
+                                        <TableColumn fx:id="descriptionColumn" prefWidth="180.0" text="Description" />
+                                        <TableColumn fx:id="amountColumn" prefWidth="90.0" text="Amount" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        
+                        <!-- Right Panel: Chart and Quick Actions Form -->
+                        <VBox spacing="20.0" prefWidth="380.0">
+                           <children>
+                              <!-- Pie Chart Card -->
+                              <VBox styleClass="card" alignment="CENTER" prefHeight="260.0">
+                                 <children>
+                                    <PieChart fx:id="categoryPieChart" title="Category Breakdown" prefHeight="240.0" />
+                                 </children>
+                              </VBox>
+                              
+                              <!-- Manage Expense Form Card -->
+                              <VBox styleClass="card" spacing="15.0">
+                                 <children>
+                                    <Label fx:id="formTitleLabel" text="Add Expense" styleClass="header-title" />
+                                    
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="AMOUNT ($)" styleClass="label-label" />
+                                          <TextField fx:id="amountField" promptText="0.00" styleClass="text-field" />
+                                       </children>
+                                    </VBox>
+                                    
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="CATEGORY" styleClass="label-label" />
+                                          <ComboBox fx:id="categoryField" promptText="Select Category" maxWidth="1.7976931348623157E308" styleClass="combo-box" />
+                                       </children>
+                                    </VBox>
+                                    
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="DESCRIPTION" styleClass="label-label" />
+                                          <TextField fx:id="descriptionField" promptText="E.g., Grocery shopping" styleClass="text-field" />
+                                       </children>
+                                    </VBox>
+                                    
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="DATE" styleClass="label-label" />
+                                          <DatePicker fx:id="dateField" promptText="Select Date" maxWidth="1.7976931348623157E308" styleClass="date-picker" />
+                                       </children>
+                                    </VBox>
+                                    
+                                    <Label fx:id="formStatusLabel" styleClass="label-error" wrapText="true" visible="false" managed="false" />
+                                    
+                                    <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                                       <children>
+                                          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteExpense" styleClass="btn, btn-danger" text="Delete" visible="false" managed="false" />
+                                          <Button fx:id="cancelEditButton" mnemonicParsing="false" onAction="#handleCancelEdit" styleClass="btn, btn-secondary" text="Cancel" visible="false" managed="false" />
+                                          <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveExpense" styleClass="btn, btn-primary" text="Save" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</HBox>
